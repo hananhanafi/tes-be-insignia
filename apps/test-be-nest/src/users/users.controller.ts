@@ -49,6 +49,8 @@ export class UsersController {
     if (!user) {
       throw new NotFoundException(`User with ${id} does not exist.`);
     }
+    user.lastActivityAt = new Date();
+    await this.usersService.update(id, user);
     return new UserEntity(await this.usersService.update(id, updateUserDto));
   }
 
@@ -61,6 +63,8 @@ export class UsersController {
     if (!user) {
       throw new NotFoundException(`User with ${id} does not exist.`);
     }
+    user.lastActivityAt = new Date();
+    await this.usersService.update(id, user);
     return new UserEntity(await this.usersService.changePassword(user, changePasswordDto));
   }
 
