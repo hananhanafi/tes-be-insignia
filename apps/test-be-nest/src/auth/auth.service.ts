@@ -29,6 +29,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    user.lastActivityAt = new Date();
     await this.prisma.user.update({
       where: { id: user.id },
       data: user,
