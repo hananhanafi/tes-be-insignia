@@ -41,7 +41,6 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    // await this.updateLastActivity(id)
     return this.prisma.user.update({
       where: { id },
       data: updateUserDto,
@@ -61,7 +60,6 @@ export class UsersService {
       throw new BadRequestException(`Old password does not match`);
     }
 
-    // await this.updateLastActivity(user.id)
     return this.prisma.user.update({
       where: { id: user.id },
       data: user,

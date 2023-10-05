@@ -9,7 +9,6 @@ import { LoginDto } from './dto/login.dto';
 @ApiTags('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  
 
   @Post('login')
   @ApiOkResponse({ type: AuthEntity })
