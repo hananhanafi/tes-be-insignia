@@ -14,7 +14,6 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
   
   async create(createUserDto: CreateUserDto) {
-    // return 'This action adds a new user';
     const hashedPassword = await bcrypt.hash(
       createUserDto.password,
       roundsOfHashing,
@@ -24,17 +23,14 @@ export class UsersService {
   }
 
   findAll() {
-    // return `This action returns all users`;
     return this.prisma.user.findMany({ where: {} });
   }
 
   findOne(id: number) {
-    // return `This action returns a #${id} user`;
     return this.prisma.user.findUnique({ where: { id } });
   }
   
   async updateLastActivity(id: number) {
-    // return `This action updates a #${id} user`;
     const user = await this.findOne(id);
     user.lastActivityAt = new Date();
 
@@ -45,14 +41,7 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    // return `This action updates a #${id} user`;
-    // if (updateUserDto.password) {
-    //   updateUserDto.password = await bcrypt.hash(
-    //     updateUserDto.password,
-    //     roundsOfHashing,
-    //   );
-    // }
-    // await this.updateLastActivity(id)
+    await this.updateLastActivity(id)
     return this.prisma.user.update({
       where: { id },
       data: updateUserDto,
