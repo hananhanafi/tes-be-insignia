@@ -52,7 +52,7 @@ export class UsersService {
     //     roundsOfHashing,
     //   );
     // }
-    await this.updateLastActivity(id)
+    // await this.updateLastActivity(id)
     return this.prisma.user.update({
       where: { id },
       data: updateUserDto,
