@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// datasource db {
+//   provider = "sqlite"
+//   url      = env("DATABASE_URL")
+// }
+
+model User {
+  id Int  @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  lastActivityAt  DateTime?
+  email String @unique
+  emailVerified DateTime?    
+  name  String
+  password String
+  role UserRoleEnum @default(USER)
+  // workspace Workspace
+  // workspaceId String
+  // Session Session
+  // Account Account
+  // ApiToken ApiToken
+}
+
+enum UserRoleEnum {
+  USER
+  ADMIN
+}
+
+model Contact {
+  id Int  @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  workspaceId String?
+  name  String
+  phoneNumber String
+  email String?
+  address String?
+  ContactList ContactList[]
+}
+
+model ContactGroup {
+  id Int  @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  name  String
+  description  String?
+  ContactList ContactList[]
+}
+
+model ContactList {
+  id Int @id @default(autoincrement())
+  contactId Int
+  contactGroupId Int
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactGroup ContactGroup @relation(fields: [contactGroupId], references: [id])
+}
