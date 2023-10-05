@@ -49,7 +49,6 @@ export class UsersController {
     if (!user) {
       throw new NotFoundException(`User with ${id} does not exist.`);
     }
-    // return this.usersService.update(id, updateUserDto);
     return new UserEntity(await this.usersService.update(id, updateUserDto));
   }
 

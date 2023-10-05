@@ -46,12 +46,12 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;
-    if (updateUserDto.password) {
-      updateUserDto.password = await bcrypt.hash(
-        updateUserDto.password,
-        roundsOfHashing,
-      );
-    }
+    // if (updateUserDto.password) {
+    //   updateUserDto.password = await bcrypt.hash(
+    //     updateUserDto.password,
+    //     roundsOfHashing,
+    //   );
+    // }
     await this.updateLastActivity(id)
     return this.prisma.user.update({
       where: { id },
