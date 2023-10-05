@@ -29,6 +29,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: user,
+    });
+
     //Generate a JWT containing the user's ID and return it
     return {
       accessToken: this.jwtService.sign({ userId: user.id }),
